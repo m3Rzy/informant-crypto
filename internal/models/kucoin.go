@@ -12,9 +12,13 @@ type Kucoin struct {
 }
 
 func (k Kucoin) Transformate(body []byte) string {
+	if k.Data.Buy == "" {
+		log.Fatal("Поле [buy] пустое!")
+	}
+
 	if err := json.Unmarshal(body, &k); err != nil {
 		log.Fatal("Ошибка парсинга JSON: ", err)
-		return ""
 	}
+	
 	return k.Data.Buy
 }
