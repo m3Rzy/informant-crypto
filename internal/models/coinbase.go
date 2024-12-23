@@ -6,6 +6,7 @@ import (
 )
 
 type CoinBase struct {
+	Rate string
 	Data     struct {
 		Rates map[string]string `json:"rates"`
 	} `json:"data"`
@@ -16,5 +17,5 @@ func (c CoinBase) Transformate(body []byte) string {
 		log.Fatal("Ошибка парсинга JSON: ", err)
 		return ""
 	}
-	return c.Data.Rates["USD"]
+	return c.Data.Rates[c.Rate]
 }

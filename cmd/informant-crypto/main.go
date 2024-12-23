@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 
 	"informant-crypto/internal/models"
@@ -8,11 +9,23 @@ import (
 	"informant-crypto/internal/utils"
 )
 
+func scan() (string, string) {
+	var cur string
+	fmt.Println("Введите Currency: ")
+	fmt.Scan(&cur)
+	var rate string
+	fmt.Println("Введите Rate: ")
+	fmt.Scan(&rate)
+	return cur, rate
+}
+
 func main() {
-	client := utils.BaseResponseBuilder("BTC", "USD", "OKX", "https://www.okx.com/api/v5/market/index-components?index=BTC-USD")
-	client2 := utils.BaseResponseBuilder("BTC", "USD", "CoinBase", "https://api.coinbase.com/v2/exchange-rates?currency=BTC")
+	cur, rate := scan()
+
+	client := utils.BaseResponseBuilder(cur, rate, "OKX", fmt.Sprintf("https://www.okx.com/api/v5/market/index-components?index=%s-%s", cur, rate))
+	client2 := utils.BaseResponseBuilder(cur, rate, "CoinBase", fmt.Sprintf("https://api.coinbase.com/v2/exchange-rates?currency=%s", cur))
 	okx1 := models.Okx{}
-	cb := models.CoinBase{}
+	cb := models.CoinBase{Rate: rate}
 
 	for {
 		utils.ToString(client, okx1, services.FetchData(client))
