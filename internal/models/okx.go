@@ -14,7 +14,6 @@ type Okx struct {
 func (o Okx) Transformate(body []byte) string {
 	if err := json.Unmarshal(body, &o); err != nil {
 		log.Fatal("Ошибка парсинга JSON: ", err)
-		return ""
 	}
 	return o.Data.Last
 }
