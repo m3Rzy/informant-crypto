@@ -1,8 +1,8 @@
-package services
+package models
 
 import (
 	"encoding/json"
-	"fmt"
+	"log"
 )
 
 type CoinBase struct {
@@ -11,10 +11,10 @@ type CoinBase struct {
 	} `json:"data"`
 }
 
-func (c CoinBase) Fetch(body []byte) string {
+func (c CoinBase) Transformate(body []byte) string {
 	if err := json.Unmarshal(body, &c); err != nil {
-		fmt.Errorf("Ошибка парсинга JSON: %w", err)
-		return err.Error()
+		log.Fatal("Ошибка парсинга JSON: ", err)
+		return ""
 	}
 	return c.Data.Rates["USD"]
 }

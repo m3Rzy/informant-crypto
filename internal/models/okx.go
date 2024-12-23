@@ -1,22 +1,20 @@
-package services
+package models
 
 import (
 	"encoding/json"
-	"fmt"
+	"log"
 )
 
 type Okx struct {
-	Data	struct {
+	Data struct {
 		Last string `json:"last"`
 	} `json:"data"`
 }
 
-func (o Okx) Fetch(body []byte) string {
-
+func (o Okx) Transformate(body []byte) string {
 	if err := json.Unmarshal(body, &o); err != nil {
-		fmt.Errorf("Ошибка парсинга JSON: %w", err)
-		return err.Error()
+		log.Fatal("Ошибка парсинга JSON: ", err)
+		return ""
 	}
-	
 	return o.Data.Last
 }
