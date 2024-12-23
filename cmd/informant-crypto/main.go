@@ -15,8 +15,8 @@ func main() {
 	cb := models.CoinBase{}
 
 	for {
-		services.ToString(client, okx1, services.Poly4(client))
-		services.ToString(client2, cb, services.Poly4(client2))
+		utils.ToString(client, okx1, services.FetchData(client))
+		utils.ToString(client2, cb, services.FetchData(client2))
 		time.Sleep(1 * time.Second) // Задержка 1 сек
 	}
 }
