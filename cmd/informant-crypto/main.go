@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"informant-crypto/internal/models"
@@ -16,7 +17,7 @@ func scan() (string, string) {
 	var rate string
 	fmt.Println("Введите Rate: ")
 	fmt.Scan(&rate)
-	return cur, rate
+	return strings.ToUpper(cur), strings.ToUpper(rate)
 }
 
 func main() {
@@ -35,7 +36,7 @@ func main() {
 		utils.ToString(client3, k, services.FetchData(client3))
 
 		fmt.Println(services.Sort(services.Spisok))
-		
+
 		time.Sleep(1 * time.Second) // Задержка 1 сек
 	}
 }
