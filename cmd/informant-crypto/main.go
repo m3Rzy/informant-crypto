@@ -33,6 +33,9 @@ func main() {
 		utils.ToString(client, okx1, services.FetchData(client))
 		utils.ToString(client2, cb, services.FetchData(client2))
 		utils.ToString(client3, k, services.FetchData(client3))
+
+		fmt.Println(services.Sort(services.Spisok))
+		
 		time.Sleep(1 * time.Second) // Задержка 1 сек
 	}
 }

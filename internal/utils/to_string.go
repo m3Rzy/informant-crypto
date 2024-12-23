@@ -8,10 +8,14 @@ import (
 )
 
 func ToString(b services.BaseResponse, f interfaces.Transformator, body []byte) {
+	coin := parseToFloat(f, body)
+
+	services.Read(coin, b.Source) // todo: удалить
+
 	fmt.Printf("[%s]Текущий курс %s/%s: %.2f\n", b.Source,
 		b.Currency,
 		b.Rate,
-		parseToFloat(f, body))
+		coin)
 }
 
 
