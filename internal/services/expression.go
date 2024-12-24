@@ -43,7 +43,7 @@ func Sort(sp map[string]float64) (string, string, string) {
 	// Формируем строки результата
 	minResult := fmt.Sprintf("Покупай на [%s] (%.2f)", minKey, minValue)
 	maxResult := fmt.Sprintf("– Продавай на [%s] (%.2f)", maxKey, maxValue)
-	raznica := fmt.Sprintf("– Мaржа %.2f", maxValue - minValue)
+	raznica := fmt.Sprintf("– Мaржа %.2f\n", maxValue - minValue)
 
 	return minResult, maxResult, raznica
 }
