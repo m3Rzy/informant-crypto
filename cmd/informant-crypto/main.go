@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"informant-crypto/internal/models"
@@ -24,6 +25,7 @@ func main() {
 	bybit_client := utils.BaseResponseBuilder(cur, rate, "Bybit", fmt.Sprintf("https://api-testnet.bybit.com/v5/market/tickers?category=inverse&symbol=%s%s", cur, rate))
 	binance_client := utils.BaseResponseBuilder(cur, rate, "Binance", fmt.Sprintf("https://api.binance.com/api/v3/ticker/price?symbol=%s%s", cur, rate))
 	bitget_client := utils.BaseResponseBuilder(cur, rate, "Bitget", fmt.Sprintf("https://api.bitget.com/api/v2/spot/market/tickers?symbol=%s%s", cur, rate))
+	htx_client := utils.BaseResponseBuilder(cur, rate, "Htx", fmt.Sprintf("https://api.huobi.pro/market/detail/merged?symbol=%s%s", strings.ToLower(cur), strings.ToLower(rate)))
 
 	okx_model := models.Okx{}
 	coin_base_model := models.CoinBase{Rate: rate}
@@ -31,6 +33,7 @@ func main() {
 	bybit_model := models.Bybit{}
 	binance_model := models.Binance{}
 	bitget_model := models.Bitget{}
+	htx_model := models.Htx{}
 
 	for {
 		fmt.Print("\n")
@@ -40,6 +43,7 @@ func main() {
 		utils.ToString(bybit_client, bybit_model, services.FetchData(bybit_client))
 		utils.ToString(binance_client, binance_model, services.FetchData(binance_client))
 		utils.ToString(bitget_client, bitget_model, services.FetchData(bitget_client))
+		utils.ToString(htx_client, htx_model, services.FetchData(htx_client))
 
 		fmt.Println(services.Sort(services.Spisok, volume, 10.00))
 
