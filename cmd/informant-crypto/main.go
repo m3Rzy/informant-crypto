@@ -10,6 +10,11 @@ import (
 )
 
 func main() {
+	// Засекаем время запуска программы
+	startTime := time.Now()
+
+	// var volume float64 = 0.001032 // соотношение 100 usdt / btc
+	var volume float64 = 0.0001032 // соотношение 10 usdt / btc
 	cur := "BTC"
 	rate := "USDT"
 
@@ -18,12 +23,14 @@ func main() {
 	kucoin_client := utils.BaseResponseBuilder(cur, rate, "Kucoin", fmt.Sprintf("https://api.kucoin.com/api/v1/market/stats?symbol=%s-%s", cur, rate))
 	bybit_client := utils.BaseResponseBuilder(cur, rate, "Bybit", fmt.Sprintf("https://api-testnet.bybit.com/v5/market/tickers?category=inverse&symbol=%s%s", cur, rate))
 	binance_client := utils.BaseResponseBuilder(cur, rate, "Binance", fmt.Sprintf("https://api.binance.com/api/v3/ticker/price?symbol=%s%s", cur, rate))
+	bitget_client := utils.BaseResponseBuilder(cur, rate, "Bitget", fmt.Sprintf("https://api.bitget.com/api/v2/spot/market/tickers?symbol=%s%s", cur, rate))
 
 	okx_model := models.Okx{}
 	coin_base_model := models.CoinBase{Rate: rate}
 	kucoin_model := models.Kucoin{}
 	bybit_model := models.Bybit{}
 	binance_model := models.Binance{}
+	bitget_model := models.Bitget{}
 
 	for {
 		fmt.Print("\n")
@@ -32,12 +39,17 @@ func main() {
 		utils.ToString(kucoin_client, kucoin_model, services.FetchData(kucoin_client))
 		utils.ToString(bybit_client, bybit_model, services.FetchData(bybit_client))
 		utils.ToString(binance_client, binance_model, services.FetchData(binance_client))
+		utils.ToString(bitget_client, bitget_model, services.FetchData(bitget_client))
 
-		fmt.Println(services.Sort(services.Spisok))
+		fmt.Println(services.Sort(services.Spisok, volume, 10.00))
 
-		// time.Sleep(1 * time.Second) // Задержка 1 сек
-		time.Sleep(500 * time.Millisecond) // Задержка 1 сек
+		// Вычисляем и выводим время, прошедшее с начала работы программы
+		elapsed := time.Since(startTime)
+		hours := int(elapsed.Hours())
+		minutes := int(elapsed.Minutes()) % 60
+		seconds := int(elapsed.Seconds()) % 60
+		fmt.Printf("Время с момента запуска программы: %02d:%02d:%02d\n", hours, minutes, seconds)
+
+		time.Sleep(1 * time.Second) // Задержка 1 сек
 	}
 }
-
-
