@@ -25,7 +25,8 @@ func main() {
 	bybit_client := utils.BaseResponseBuilder(cur, rate, "Bybit", fmt.Sprintf("https://api-testnet.bybit.com/v5/market/tickers?category=inverse&symbol=%s%s", cur, rate))
 	binance_client := utils.BaseResponseBuilder(cur, rate, "Binance", fmt.Sprintf("https://api.binance.com/api/v3/ticker/price?symbol=%s%s", cur, rate))
 	bitget_client := utils.BaseResponseBuilder(cur, rate, "Bitget", fmt.Sprintf("https://api.bitget.com/api/v2/spot/market/tickers?symbol=%s%s", cur, rate))
-	htx_client := utils.BaseResponseBuilder(cur, rate, "Htx", fmt.Sprintf("https://api.huobi.pro/market/detail/merged?symbol=%s%s", strings.ToLower(cur), strings.ToLower(rate)))
+	htx_client := utils.BaseResponseBuilder(cur, rate, "HTX", fmt.Sprintf("https://api.huobi.pro/market/detail/merged?symbol=%s%s", strings.ToLower(cur), strings.ToLower(rate)))
+	mexc_client := utils.BaseResponseBuilder(cur, rate, "MEXC", fmt.Sprintf("https://api.mexc.com/api/v3/ticker/price?symbol=%s%s", strings.ToUpper(cur), strings.ToUpper(rate)))
 
 	okx_model := models.Okx{}
 	coin_base_model := models.CoinBase{Rate: rate}
@@ -34,6 +35,7 @@ func main() {
 	binance_model := models.Binance{}
 	bitget_model := models.Bitget{}
 	htx_model := models.Htx{}
+	mexc_model := models.Mexc{}
 
 	for {
 		fmt.Print("\n")
@@ -44,6 +46,7 @@ func main() {
 		utils.ToString(binance_client, binance_model, services.FetchData(binance_client))
 		utils.ToString(bitget_client, bitget_model, services.FetchData(bitget_client))
 		utils.ToString(htx_client, htx_model, services.FetchData(htx_client))
+		utils.ToString(mexc_client, mexc_model, services.FetchData(mexc_client))
 
 		fmt.Println(services.Sort(services.Spisok, volume, 10.00))
 
