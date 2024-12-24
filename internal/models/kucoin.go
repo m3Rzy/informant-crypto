@@ -17,7 +17,7 @@ func (k Kucoin) Transformate(body []byte) string {
 	}
 
 	if k.Data.Buy == "" {
-		log.Fatal("Поле [buy] пустое!")
+		return " "
 	}
 	
 	return k.Data.Buy

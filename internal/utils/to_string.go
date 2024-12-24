@@ -10,6 +10,11 @@ import (
 func ToString(b services.BaseResponse, f interfaces.Transformator, body []byte) {
 	coin := parseToFloat(f, body)
 
+	if coin == 0.00 {
+		fmt.Printf("! Сервис [%s] был пропущен из-за отсутствия [%s] у него\n", b.Source, b.Rate)
+		return
+	}
+
 	services.Read(coin, b.Source) // Анализ цен и вывод что покупать/продавать
 
 	// Установим ширину для полей
@@ -23,7 +28,8 @@ func ToString(b services.BaseResponse, f interfaces.Transformator, body []byte) 
 func parseToFloat(f interfaces.Transformator, body []byte) float64 {
 	finish, err := strconv.ParseFloat(f.Transformate(body), 64)
 	if err != nil {
-		fmt.Printf("Ошибка преобразования строки в число: %+v", string(body))
+		// fmt.Printf("Ошибка преобразования строки в число: %+v", string(body))
+		// fmt.Printf("У сервиса проблема с преобразованием валюты в число, возможно, она отсутствует у него - ")
 	}
 	return finish
 }

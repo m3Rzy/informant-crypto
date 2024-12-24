@@ -8,7 +8,7 @@ import (
 type Bybit struct {
 	Result struct {
 		List []struct {
-			LastPrice string `json:"lastPrice"`
+			IndexPrice string `json:"indexPrice"`
 		} `json:"list"`
 	} `json:"result"`
 }
@@ -18,5 +18,5 @@ func (b Bybit) Transformate(body []byte) string {
 		log.Fatal("Ошибка парсинга JSON: ", err)
 		return ""
 	}
-	return b.Result.List[0].LastPrice
+	return b.Result.List[0].IndexPrice
 }

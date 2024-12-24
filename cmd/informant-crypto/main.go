@@ -35,7 +35,8 @@ func main() {
 
 		fmt.Println(services.Sort(services.Spisok))
 
-		time.Sleep(1 * time.Second) // Задержка 1 сек
+		// time.Sleep(1 * time.Second) // Задержка 1 сек
+		time.Sleep(500 * time.Millisecond) // Задержка 1 сек
 	}
 }
 

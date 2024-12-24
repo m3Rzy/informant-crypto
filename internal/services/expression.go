@@ -15,7 +15,7 @@ func Read(coin float64, source string) {
 // Функция для определения самой дешёвой и самой дорогой покупки
 func Sort(sp map[string]float64) (string, string, string) {
 	if len(sp) == 0 {
-		return "Нет данных", "Нет данных", "" // Обработка случая, когда карта пустая
+		return "Нет данных для анализа!", "", "" // Обработка случая, когда карта пустая
 	}
 
 	var minKey, maxKey string

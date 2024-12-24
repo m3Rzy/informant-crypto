@@ -1,8 +1,8 @@
 package services
 
 import (
+	"fmt"
 	"io"
-	"log"
 	"net/http"
 )
 
@@ -16,18 +16,18 @@ type BaseResponse struct {
 func FetchData(b BaseResponse) []byte {
 	resp, err := http.Get(b.URL)
 	if err != nil {
-		log.Fatalf("Ошибка подключения к API OKX: %w", err)
+		fmt.Printf("Ошибка подключения к API OKX: %w", err)
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("Неожиданный статус ответа: %d", resp.StatusCode)
-	}
-
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalf("Ошибка чтения ответа: %w", err)
+		fmt.Printf("Ошибка чтения ответа: %v", err)
 	}
+
+	// if resp.StatusCode != http.StatusOK {
+	// 	fmt.Printf("Неожиданный статус ответа: %d\nПроблема с body: %s", resp.StatusCode, body)
+	// }
 
 	return body
 }
