@@ -16,7 +16,7 @@ type BaseResponse struct {
 func FetchData(b BaseResponse) []byte {
 	resp, err := http.Get(b.URL)
 	if err != nil {
-		fmt.Printf("Ошибка подключения к API OKX: %w", err)
+		fmt.Printf("Ошибка подключения к API OKX: %v", err)
 	}
 	defer resp.Body.Close()
 
