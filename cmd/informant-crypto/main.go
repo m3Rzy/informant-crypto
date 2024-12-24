@@ -13,24 +13,25 @@ func main() {
 	cur := "BTC"
 	rate := "USDT"
 
-	client := utils.BaseResponseBuilder(cur, rate, "OKX", fmt.Sprintf("https://www.okx.com/api/v5/market/index-components?index=%s-%s", cur, rate))
-	client2 := utils.BaseResponseBuilder(cur, rate, "CoinBase", fmt.Sprintf("https://api.coinbase.com/v2/exchange-rates?currency=%s", cur))
-	client3 := utils.BaseResponseBuilder(cur, rate, "Kucoin", fmt.Sprintf("https://api.kucoin.com/api/v1/market/stats?symbol=%s-%s", cur, rate))
-	client4 := utils.BaseResponseBuilder(cur, rate, "Bybit", fmt.Sprintf("https://api-testnet.bybit.com/v5/market/tickers?category=inverse&symbol=%s%s", cur, rate))
-	client5 := utils.BaseResponseBuilder(cur, rate, "Binance", fmt.Sprintf("https://api.binance.com/api/v3/ticker/price?symbol=%s%s", cur, rate))
-	okx1 := models.Okx{}
-	cb := models.CoinBase{Rate: rate}
-	k := models.Kucoin{}
-	bybit := models.Bybit{}
-	binance := models.Binance{}
+	okx_client := utils.BaseResponseBuilder(cur, rate, "OKX", fmt.Sprintf("https://www.okx.com/api/v5/market/index-components?index=%s-%s", cur, rate))
+	coinbase_client := utils.BaseResponseBuilder(cur, rate, "CoinBase", fmt.Sprintf("https://api.coinbase.com/v2/exchange-rates?currency=%s", cur))
+	kucoin_client := utils.BaseResponseBuilder(cur, rate, "Kucoin", fmt.Sprintf("https://api.kucoin.com/api/v1/market/stats?symbol=%s-%s", cur, rate))
+	bybit_client := utils.BaseResponseBuilder(cur, rate, "Bybit", fmt.Sprintf("https://api-testnet.bybit.com/v5/market/tickers?category=inverse&symbol=%s%s", cur, rate))
+	binance_client := utils.BaseResponseBuilder(cur, rate, "Binance", fmt.Sprintf("https://api.binance.com/api/v3/ticker/price?symbol=%s%s", cur, rate))
+
+	okx_model := models.Okx{}
+	coin_base_model := models.CoinBase{Rate: rate}
+	kucoin_model := models.Kucoin{}
+	bybit_model := models.Bybit{}
+	binance_model := models.Binance{}
 
 	for {
 		fmt.Print("\n")
-		utils.ToString(client, okx1, services.FetchData(client))
-		utils.ToString(client2, cb, services.FetchData(client2))
-		utils.ToString(client3, k, services.FetchData(client3))
-		utils.ToString(client4, bybit, services.FetchData(client4))
-		utils.ToString(client5, binance, services.FetchData(client5))
+		utils.ToString(okx_client, okx_model, services.FetchData(okx_client))
+		utils.ToString(coinbase_client, coin_base_model, services.FetchData(coinbase_client))
+		utils.ToString(kucoin_client, kucoin_model, services.FetchData(kucoin_client))
+		utils.ToString(bybit_client, bybit_model, services.FetchData(bybit_client))
+		utils.ToString(binance_client, binance_model, services.FetchData(binance_client))
 
 		fmt.Println(services.Sort(services.Spisok))
 
